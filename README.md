@@ -5,9 +5,6 @@ React-PHP-V8Js is an experimental library that uses the power of Facebook's
 [React](http://facebook.github.io/react/) library to render UI components
 on the server-side with PHP as well as on the client.
 
-If you want to render on the server-side with Node.js please see the 
-[react-page project](https://github.com/facebook/react-page)
-
 Prerequisites
 ===========
 * Server running PHP 5.3.3+

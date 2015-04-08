@@ -106,7 +106,7 @@ class ReactJS {
     try {
       $js = $this->react;
       $js.= sprintf(
-        "React.renderComponentToString(%s(%s), print)",
+        "print(React.renderToString(React.createElement(%s, %s)))",
         $this->component,
         $this->data);
 
@@ -120,7 +120,7 @@ class ReactJS {
       } else {
         // default error handler blows up bad
         echo "<pre>";
-        var_dump($e);
+        echo $e->getMessage();
         echo "</pre>";
         die(); 
       }
@@ -157,7 +157,7 @@ class ReactJS {
     return 
       ($return_var ? "var $return_var = " : "") .
       sprintf(
-        "React.renderComponent(%s(%s), %s);",
+        "React.render(React.createElement(%s, %s), %s);",
         $this->component,
         $this->data,
         $where

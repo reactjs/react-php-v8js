@@ -10,8 +10,11 @@ Prerequisites
 * Server running PHP 5.3.3+
 * [V8Js PHP extension](http://php.net/v8js)
 
-For a walkthrough how to setup the requirements on a vanilla MacOS, [see
-here](http://www.phpied.com/installing-v8js-for-php-on-a-mac/)
+For a walkthrough how to setup V8Js PHP extension, use the links below:
+
+- [On Linux](https://github.com/preillyme/v8js/blob/master/README.Linux.md)
+- [On MacOS](https://github.com/preillyme/v8js/blob/master/README.MacOS.md)
+- [On Windows](https://github.com/preillyme/v8js/blob/master/README.Win32.md)
 
 Usage
 ===========

@@ -104,9 +104,7 @@ class ReactJS {
       $this->component,
       $this->data);
 
-    ob_start();
-    $this->executeJS($js);      
-    return ob_get_clean();
+    return $this->executeJS($js);
   }
   
   /**
@@ -150,11 +148,13 @@ class ReactJS {
    * Executes Javascript using V8JS, with primitive exception handling
    *
    * @param string $js JS code to be executed
-   * @return mixed
+   * @return string The execution response
    */
   private function executeJS($js) {
     try {
-      return $this->v8->executeString($js);
+      ob_start();
+      $this->v8->executeString($js);
+      return ob_get_clean();
     } catch (V8JsException $e) {
       if ($this->errorHandler) {
         call_user_func($this->errorHandler, $e);

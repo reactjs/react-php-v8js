@@ -17,12 +17,6 @@ class ReactJS {
   
   private
     /**
-     * Concatenated React.js + Application code + boilerplate
-     * @var string
-     */
-    $react,
-    
-    /**
      * Name of the component to render
      * @var string
      */
@@ -64,9 +58,11 @@ class ReactJS {
     // app's components
     $react[] = $appsrc;
     $react[] = ';';
-    $this->react = implode(";\n", $react);
-    
+
+    $concatenated = implode(";\n", $react);
+
     $this->v8 = new V8Js();
+    $this->executeJS($concatenated);
   }
   
   /**
@@ -103,28 +99,12 @@ class ReactJS {
    * @return string HTML string
    */
   function getMarkup() {
-    try {
-      $js = $this->react;
-      $js.= sprintf(
-        "print(React.renderToString(React.createElement(%s, %s)))",
-        $this->component,
-        $this->data);
+    $js = sprintf(
+      "print(React.renderToString(React.createElement(%s, %s)))",
+      $this->component,
+      $this->data);
 
-      ob_start();
-      $this->v8->executeString($js);      
-      return ob_get_clean();
-
-    } catch (V8JsException $e) {
-      if ($this->errorHandler) {
-        call_user_func($this->errorHandler, $e);
-      } else {
-        // default error handler blows up bad
-        echo "<pre>";
-        echo $e->getMessage();
-        echo "</pre>";
-        die(); 
-      }
-    }
+    return $this->executeJS($js);
   }
   
   /**
@@ -163,5 +143,30 @@ class ReactJS {
         $where
       );
   }
+
+  /**
+   * Executes Javascript using V8JS, with primitive exception handling
+   *
+   * @param string $js JS code to be executed
+   * @return string The execution response
+   */
+  private function executeJS($js) {
+    try {
+      ob_start();
+      $this->v8->executeString($js);
+      return ob_get_clean();
+    } catch (V8JsException $e) {
+      if ($this->errorHandler) {
+        call_user_func($this->errorHandler, $e);
+      } else {
+        // default error handler blows up bad
+        echo "<pre>";
+        echo $e->getMessage();
+        echo "</pre>";
+        die(); 
+      }
+    }
+  }
+
 }
 

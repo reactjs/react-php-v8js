@@ -58,7 +58,7 @@ class ReactJS {
     $react = array();
     // stubs, react
     $react[] = "var console = {warn: function(){}, error: print}";
-    $react[] = "var global = {}";
+    $react[] = "var global = global || this, self = self || this, window = window || this";
     $react[] = $libsrc;
     $react[] = "var React = global.React";
     // app's components

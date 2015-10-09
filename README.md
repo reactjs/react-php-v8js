@@ -26,8 +26,10 @@ $app_source = file_get_contents('/path/to/custom/components.js');
 
 $rjs = new ReactJS($react_source, $app_source);
 $rjs->setComponent('MyComponent', array(
-  'any': 1,
-  'props': 2));
+  'any'   =>  1,
+  'props' =>  2
+  )
+);
 
 /// ...
 

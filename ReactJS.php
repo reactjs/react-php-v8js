@@ -14,32 +14,32 @@
  * Requires V8JS PHP extension: http://php.net/v8js
  */
 class ReactJS {
-  
+
   private
     /**
      * Name of the component to render
      * @var string
      */
     $component,
-    
+
     /**
      * Properties that go along with the component
      * @var mixed
      */
     $data = null,
-    
+
     /**
      * Instance of V8Js class
      * @var object
      */
     $v8,
-    
+
     /**
      * Custom error handler
      * @var callable
      */
     $errorHandler;
-  
+
   /**
    * Initialize by passing JS code as a string.
    * The application source code is concatenated string
@@ -64,7 +64,7 @@ class ReactJS {
     $this->v8 = new V8Js();
     $this->executeJS($concatenated);
   }
-  
+
   /**
    * Which components is to be rendered along with it's data
    * E.g.
@@ -80,7 +80,7 @@ class ReactJS {
     $this->data = json_encode($data);
     return $this;
   }
-  
+
   /**
    * Custom error handler. The default one var_dumps the exception
    * and die()s.
@@ -92,7 +92,7 @@ class ReactJS {
     $this->errorHandler = $err;
     return $this;
   }
-  
+
   /**
    * Returns the markup to print to the page
    *
@@ -106,18 +106,18 @@ class ReactJS {
 
     return $this->executeJS($js);
   }
-  
+
   /**
    * Returns JS to be inlined in the page (without <script> tags)
    * It instantiates the client side, once the JS arrives
-   * 
+   *
    * NOTE: This class makes no attempt to load files JS so you can load it
    * however is appropriate - from a CDN, asynchronously, etc.
    *
-   * e.g. getJS('document.body'); 
+   * e.g. getJS('document.body');
    *     renders in body and doesn't retain a var
-   * e.g. getJS('#page', "GLOB"); 
-   *      renders in element id="page" and assigns the component to 
+   * e.g. getJS('#page', "GLOB");
+   *      renders in element id="page" and assigns the component to
    *      a JavaScript variable named GLOB for later use if needed
    * @param string $where A reference to a DOM object, or an ID
    *               for convenience if prefixed by a #. E.g. "#page"
@@ -134,7 +134,7 @@ class ReactJS {
         substr($where, 1)
       );
     }
-    return 
+    return
       ($return_var ? "var $return_var = " : "") .
       sprintf(
         "React.render(React.createElement(%s, %s), %s);",
@@ -163,10 +163,9 @@ class ReactJS {
         echo "<pre>";
         echo $e->getMessage();
         echo "</pre>";
-        die(); 
+        die();
       }
     }
   }
 
 }
-

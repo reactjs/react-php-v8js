@@ -14,11 +14,14 @@
 include '../ReactJS.php';
 
 $rjs = new ReactJS(
-  file_get_contents('../../react/build/react.js'), // location of React's code
-  file_get_contents('table.js')); // app code
+  // location of React's code
+  file_get_contents('build/react-bundle.js'),
+  // app code
+  file_get_contents('build/table.js')
+);
 
 // data to be passed to the component
-$data = 
+$data =
   array('data' => array(
     array(1, 2, 3),
     array(4, 5, 6),
@@ -39,14 +42,14 @@ $rjs->setComponent('Table', $data);
     <!-- css and stuff -->
   </head>
   <body>
-    
+
     <!-- render server content here -->
-    <div id="page"><?php echo $rjs->getMarkup(); ?></div> 
-    
+    <div id="page"><?php echo $rjs->getMarkup(); ?></div>
+
     <!-- load react and app code -->
     <script src="react/build/react.min.js"></script>
-    <script src="react/build/table.js"></script>
-    
+    <script src="build/table.js"></script>
+
     <script>
     // client init/render
     // this is a straight echo of the JS because the JS resources
@@ -57,4 +60,3 @@ $rjs->setComponent('Table', $data);
     </script>
   </body>
 </html>
-

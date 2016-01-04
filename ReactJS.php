@@ -51,10 +51,10 @@ class ReactJS {
   function __construct($libsrc, $appsrc) {
     $react = array();
     // stubs, react
-    $react[] = "var console = {warn: function(){}, error: print}";
-    $react[] = "var global = global || this, self = self || this, window = window || this";
+    $react[] = "var console = {warn: function(){}, error: print};";
+    $react[] = "var global = global || this, self = self || this, window = window || this;";
     $react[] = $libsrc;
-    $react[] = "var React = global.React";
+    $react[] = "var React = global.React, ReactDOM = global.ReactDOM, ReactDOMServer = global.ReactDOMServer;";
     // app's components
     $react[] = $appsrc;
     $react[] = ';';
@@ -100,7 +100,7 @@ class ReactJS {
    */
   function getMarkup() {
     $js = sprintf(
-      "print(React.renderToString(React.createElement(%s, %s)))",
+      "print(ReactDOMServer.renderToString(React.createElement(%s, %s)))",
       $this->component,
       $this->data);
 
@@ -137,7 +137,7 @@ class ReactJS {
     return
       ($return_var ? "var $return_var = " : "") .
       sprintf(
-        "React.render(React.createElement(%s, %s), %s);",
+        "ReactDOM.render(React.createElement(%s, %s), %s);",
         $this->component,
         $this->data,
         $where

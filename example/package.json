@@ -1,0 +1,20 @@
+{
+  "name": "react-php-v8js",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "make": "npm run make-dev && npm run make-min && npm run make-table",
+    "make-dev": "browserify -t [ envify --NODE_ENV development ] src/react-bundle.js > build/react-bundle.js",
+    "make-min": "browserify -t [ envify --NODE_ENV production ] src/react-bundle.js | uglifyjs > build/react-bundle.min.js",
+    "make-table": "babel --presets react src/table.js > build/table.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-preset-react": "^6.3.13",
+    "browserify": "^12.0.1",
+    "envify": "^3.4.0",
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5",
+    "uglifyjs": "^2.4.10"
+  }
+}
